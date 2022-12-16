@@ -6,7 +6,17 @@ My NixOS configuration for my machines.
 ### Set up a new host
 
  - [ ] Boot the NixOS standard installer as a base.
- - [ ] Set up the host by following the `https://nixos.org/manual/nixos/stable/`. This will generate a suitable `configuration.nix` and `hardware-configuration.nix` in the `/etc/nixos` directory to use as a starting point.
+ - [ ] Set up the host by following `https://nixos.org/manual/nixos/stable/` or the graphical installer.
+ 
+This will generate a suitable `configuration.nix` and `hardware-configuration.nix` in the `/etc/nixos` directory to use as a starting point.
+
+ - [ ] Make edits to the generated files as necessary.
+ - [ ] Include the following to enable flakes:
+
+```nix
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+```
+
  - [ ] Access git and flakes using:
 
 ```bash
@@ -24,8 +34,8 @@ cd nixos-config
  - [ ] Move the generated files:
 
 ```bash
-cp /etc/nixos/configuration.nix ./hosts/<hostname>/configuration.nix
-cp /etc/nixos/hardware-configuration.nix ./hosts/<hostname>/hardware-configuration.nix
+cp /mnt/etc/nixos/configuration.nix ./hosts/<hostname>/configuration.nix
+cp /mnt/etc/nixos/hardware-configuration.nix ./hosts/<hostname>/hardware-configuration.nix
 ```
 
  - [ ] Add an entry in `flake.nix` for the new host:
@@ -49,7 +59,7 @@ cp /etc/nixos/hardware-configuration.nix ./hosts/<hostname>/hardware-configurati
 git add .
 ```
 
- - [ ] Build the new system configuration:
+ - [ ] Build the new system configuration from the `nixos-config` directory:
 
 ```bash
 sudo nixos-rebuild switch --flake .#<hostname>

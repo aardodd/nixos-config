@@ -32,8 +32,9 @@
   };
 
   security.polkit.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
+  virtualisation = {
+    vmware.guest.enable = true;
+    libvirtd.enable = true;
   };
   environment.systemPackages = with pkgs; [ virt-manager ];
 

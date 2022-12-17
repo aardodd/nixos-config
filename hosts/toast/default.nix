@@ -5,7 +5,7 @@
     ../common/global
     ../common/users/aaron.nix
 
-    ../common/optional/gnome.nix
+    ../common/optional/plasma.nix
   ];
 
   networking = {

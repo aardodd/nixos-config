@@ -26,7 +26,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    impermanence.url = "github:nix-community/impermanence";
 
     # NixOS-WSL for windows subsystem for linux (WSL) containers on Windows hosts.
     nixos-wsl = {

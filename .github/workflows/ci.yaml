@@ -1,0 +1,16 @@
+name: Test Nix
+on: commit
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Test
+        run: |
+          set -ex
+          nix flake check
+          nix run .#fmt
+          git diff --exit-code

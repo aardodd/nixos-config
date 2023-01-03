@@ -62,8 +62,11 @@
     inherit (self) outputs;
 
     supportedSystems = [
-      "x86_64-linux"
+      "aarch64-darwin"
       "aarch64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
     ];
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in
@@ -86,6 +89,11 @@
       in import ./pkgs { inherit pkgs; }
     );
 
+    formatter = forAllSystems (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in pkgs.nixpkgs-fmt;
+    );
+
     devShells = forAllSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in import ./shell.nix { inherit pkgs; }
@@ -105,5 +113,21 @@
         modules = [ ./home/aaron/generic.nix ];
       };
     };
+
+    apps = forAllSystems (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        mkApp = name: script: {
+          type = "app";
+          program = builtins.toString (pkgs.writeShellScript "${name}.sh" script);
+        };
+      in
+      {
+        fmt = mkApp "fmt" ''
+          PATH=${with pkgs; lib.makeBinPath [ nix git ]}
+          ${pkgs.lib.fileContents ./scripts/fmt.sh}
+        '';
+      }
+    );
   };
 }

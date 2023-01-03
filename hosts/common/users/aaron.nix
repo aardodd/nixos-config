@@ -1,7 +1,13 @@
 { pkgs, config, lib, outputs, ... }:
 let
+  inherit (builtins) filter hasAttr head map pathExists;
+
   username = "aaron";
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+  homePath = ../../../home/${username};
+  homeConfigPaths = [ "${config.networking.hostName}.nix" "generic.nix" ];
+
+  ifGroupsExist = groups: filter (group: hasAttr group config.users.groups) groups;
+  userConfigExists = root: files: head (filter (p: pathExists p) (map (f: "${root}/${f}") files));
 in
 {
   users.mutableUsers = true;
@@ -12,7 +18,7 @@ in
       "wheel"
       "video"
       "audio"
-    ] ++ ifTheyExist [
+    ] ++ ifGroupsExist [
       "network"
       "docker"
       "podman"
@@ -22,5 +28,5 @@ in
     initialPassword = "deadbread";
   };
 
-  home-manager.users.${username} = import ../../../home/${username}/${config.networking.hostName}.nix;
+  home-manager.users.${username} = import (userConfigExists homePath homeConfigPaths);
 }

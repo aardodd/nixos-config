@@ -9,7 +9,7 @@
   ];
 
   networking = {
-    hostName = "toast";
+    hostName = "vbox";
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -51,7 +51,6 @@
 
   security.polkit.enable = true;
   virtualisation = {
-    vmware.guest.enable = true;
     libvirtd.enable = true;
   };
   environment.systemPackages = with pkgs; [ virt-manager ];

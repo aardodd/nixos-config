@@ -92,17 +92,17 @@
     );
 
     nixosConfigurations = rec {
-      toast = nixpkgs.lib.nixosSystem {
+      vbox = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/toast ];
+        modules = [ ./hosts/vbox ];
       };
     };
 
     homeConfigurations = {
-      "aaron@toast" = home-manager.lib.homeManagerConfiguration {
+      "aaron@generic" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages."x86_64-linux";
         extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./home/aaron/toast.nix ];
+        modules = [ ./home/aaron/generic.nix ];
       };
     };
   };

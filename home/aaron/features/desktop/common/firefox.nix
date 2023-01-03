@@ -9,7 +9,7 @@ in
       ublock-origin
     ];
     profiles.default = {
-      bookmarks = {};
+      bookmarks = { };
       settings = {
         "browser.startup.homepage" = "https://start.duckduckgo.com";
         "identity.fxaccounts.enabled" = false;

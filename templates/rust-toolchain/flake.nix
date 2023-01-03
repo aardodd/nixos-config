@@ -9,31 +9,31 @@
 
   outputs = { self, flake-utils, nixpkgs, rust-overlay }:
     flake-utils.lib.eachDefaultSystem (system:
-    let
-      overlays = [
-        (import rust-overlay)
-        (self: super: {
-          rustToolchain = super.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
-        })
-      ];
-
-      pkgs = import nixpkgs { inherit system overlays; };
-    in
-    {
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          rustToolchain
-          openssl
-          pkg-config
-          cargo-deny
-          cargo-edit
-          cargo-watch
-          rust-analyzer
+      let
+        overlays = [
+          (import rust-overlay)
+          (self: super: {
+            rustToolchain = super.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
+          })
         ];
 
-        shellHook = ''
-          ${pkgs.rustToolchain}/bin/cargo --version
-        '';
-      };
-    });
+        pkgs = import nixpkgs { inherit system overlays; };
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            rustToolchain
+            openssl
+            pkg-config
+            cargo-deny
+            cargo-edit
+            cargo-watch
+            rust-analyzer
+          ];
+
+          shellHook = ''
+            ${pkgs.rustToolchain}/bin/cargo --version
+          '';
+        };
+      });
 }

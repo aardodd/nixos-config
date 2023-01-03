@@ -1,5 +1,5 @@
 name: Test Nix
-on: commit
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest

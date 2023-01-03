@@ -24,7 +24,8 @@
   description = "My NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Pick a channel from https://status.nixos.org/
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # NixOS-WSL for windows subsystem for linux (WSL) containers on Windows hosts.

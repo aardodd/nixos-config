@@ -1,6 +1,7 @@
 { lib, inputs, outputs, ... }:
 {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./fish.nix
     ./locale.nix

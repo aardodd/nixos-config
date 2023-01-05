@@ -26,5 +26,5 @@
   };
 
   programs.fuse.userAllowOther = true;
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
 }

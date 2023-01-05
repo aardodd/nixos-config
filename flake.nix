@@ -26,14 +26,10 @@
   inputs = {
     # Pick a channel from https://status.nixos.org/
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+
+    # Interfacing with Hardware.
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    # NixOS-WSL for windows subsystem for linux (WSL) containers on Windows hosts.
-    nixos-wsl = {
-      url = "github:nix-community/nixos-wsl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # HomeManager as a dotfiles replacement.
     home-manager = {
@@ -43,12 +39,6 @@
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Bootloader themes.
-    grub2-themes = {
-      url = github:anothergroupchat/grub2-themes-png;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

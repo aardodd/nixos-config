@@ -23,13 +23,6 @@
 
   boot = {
     loader.grub.devices = [ "/dev/sda" ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
-  };
-
-  programs = {
-    adb.enable = true;
-    dconf.enable = true;
   };
 
   services.dbus.packages = [ pkgs.gcr ];

@@ -9,8 +9,9 @@
     };
   };
 
-  programs.kdeconnect = {
-    enable = true;
+  programs = {
+    kdeconnect.enable = true;
+    ssh.askPassword = pkgs.lib.mkForce "${pkgs.libsForQt5.ksshaskpass.out}/bin/ksshaskpass";
   };
 
   networking.networkmanager.enable = true;

@@ -37,6 +37,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fix command-not-found
+    programsdb = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";

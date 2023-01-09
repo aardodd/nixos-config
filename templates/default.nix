@@ -5,6 +5,16 @@
 # 'nix flake new --template github:aardodd/nixos-config#${ENV} ${DIRECTORY}'
 
 {
+  node = {
+    description = "Node development environment";
+    path = ./node;
+  };
+
+  python = {
+    description = "Python development environment";
+    path = ./python;
+  };
+
   rust = {
     description = "Rust development environment";
     path = ./rust;
@@ -13,10 +23,5 @@
   rust-toolchain = {
     description = "Rust toolchain development environment";
     path = ./rust-toolchain;
-  };
-
-  node = {
-    description = "Node development environment";
-    path = ./node;
   };
 }

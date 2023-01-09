@@ -1,4 +1,4 @@
-{ lib, inputs, outputs, ... }:
+{ pkgs, lib, inputs, outputs, ... }:
 {
   imports = [
     inputs.impermanence.nixosModules.impermanence
@@ -7,6 +7,7 @@
     ./locale.nix
     ./nix.nix
     ./openssh.nix
+    ./security.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager = {
@@ -22,8 +23,11 @@
   };
 
   environment = {
-    enableAllTerminfo = true;
+    binsh = "${pkgs.dash}/bin/dash";
+    systemPackages = with pkgs; [ git ];
   };
+
+  services.dbus.enable = true;
 
   programs.fuse.userAllowOther = true;
   hardware.enableAllFirmware = true;

@@ -18,7 +18,6 @@
     ark
     kate
     okular
-    plasma-browser-integration
     spectacle
   ];
 

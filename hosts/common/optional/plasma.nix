@@ -14,5 +14,13 @@
     ssh.askPassword = pkgs.lib.mkForce "${pkgs.libsForQt5.ksshaskpass.out}/bin/ksshaskpass";
   };
 
+  environment.systemPackages = with pkgs; [
+    ark
+    kate
+    okular
+    plasma-browser-integration
+    spectacle
+  ];
+
   networking.networkmanager.enable = true;
 }

@@ -22,6 +22,7 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     loader.grub.devices = [ "/dev/sda" ];
   };
 

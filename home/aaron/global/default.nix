@@ -37,7 +37,7 @@
     stateVersion = lib.mkDefault "22.11";
 
     packages = with pkgs; [
-      duplicacy
+      restic
       hledger
       keepassxc
       obs-studio

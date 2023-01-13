@@ -31,6 +31,11 @@
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # HomeManager as a dotfiles replacement.
     home-manager = {
       url = "github:nix-community/home-manager";

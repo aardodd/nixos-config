@@ -37,10 +37,11 @@
     stateVersion = lib.mkDefault "22.11";
 
     packages = with pkgs; [
-      restic
+      emacs
       hledger
       keepassxc
       obs-studio
+      restic
     ];
   };
 }

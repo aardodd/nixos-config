@@ -35,13 +35,5 @@
     username = lib.mkDefault "aaron";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "22.11";
-
-    packages = with pkgs; [
-      emacs
-      hledger
-      keepassxc
-      obs-studio
-      restic
-    ];
   };
 }

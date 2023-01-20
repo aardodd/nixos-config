@@ -10,11 +10,13 @@ in
       bitwarden
       plasma-integration
       privacy-badger
+      sponsorblock
     ];
     profiles.default = {
       bookmarks = { };
       settings = {
         "browser.startup.homepage" = "https://start.duckduckgo.com";
+        "browser.urlbar.placeholderName" = "DuckDuckGo";
         "identity.fxaccounts.enabled" = false;
         "privacy.trackingprotection.enabled" = true;
         "dom.security.https_only_mode" = true;

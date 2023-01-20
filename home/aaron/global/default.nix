@@ -9,7 +9,9 @@
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
+    overlays = [
+      inputs.emacs-overlay.overlays.emacs
+    ] ++ (builtins.attrValues outputs.overlays);
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);

@@ -6,7 +6,6 @@
 
   home.packages = with pkgs; [
     distrobox
-    emacs
     hledger
     jq
     just

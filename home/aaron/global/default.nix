@@ -4,14 +4,13 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     ../features/cli
     ../features/desktop/common
+    ../features/emacs
     ../features/neovim
     ../features/direnv
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
-    overlays = [
-      inputs.emacs-overlay.overlays.emacs
-    ] ++ (builtins.attrValues outputs.overlays);
+    overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
@@ -19,7 +18,6 @@
   };
 
   nix = {
-    package = lib.mkDefault pkgs.nix;
     settings = {
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       warn-dirty = false;

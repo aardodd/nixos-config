@@ -20,7 +20,6 @@ in
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       warn-dirty = false;
     };
-    package = pkgs.nixUnstable;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -33,10 +32,5 @@ in
     # Map registries to channels
     # Very useful when using legacy commands
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
   };
 }

@@ -44,8 +44,8 @@
                     mountpoint = "/";
                     postCreateHook = ''
                       mkdir -p $MNTPOINT
-                      mount /dev/mapper/crypted $MNTPOINT -o subvol=/root
-                      btrfs subvolume snapshot -r $MNTPOINT $MNTPOINT/root-blank
+                      mount -t btrfs /dev/disk/by-label/root $MNTPOINT -o subvol=/
+                      btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
                       umount $MNTPOINT
                       rm -rf $MNTPOINT
                     '';

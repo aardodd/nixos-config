@@ -38,7 +38,7 @@
               keyFile = "/tmp/disk.key";
               content = {
                 type = "btrfs";
-                extraArgs = "-f"; # Override existing partition
+                extraArgs = "--label root -f"; # Override existing partition
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";

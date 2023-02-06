@@ -34,10 +34,17 @@
             end = "100%";
             content = {
               type = "btrfs";
-              extraArgs = "-f"; # Override existing partition
+              extraArgs = "--label root -f"; # Override existing partition
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";
+                  postCreateHook = ''
+                    mkdir -p $MNTPOINT
+                    mount /dev/disk/by-label/root $MNTPOINT -o subvol=/root
+                    btrfs subvolume snapshot -r $MNTPOINT $MNTPOINT/root-blank
+                    umount $MNTPOINT
+                    rm -rf $MNTPOINT
+                  '';
                 };
                 "/home" = {
                   mountOptions = [ "compress=zstd" ];

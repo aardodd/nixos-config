@@ -62,12 +62,5 @@ in {
     wlr.enable = true;
   };
 
-  security.polkit.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [ virt-manager ];
-
   system.stateVersion = "22.11";
 }

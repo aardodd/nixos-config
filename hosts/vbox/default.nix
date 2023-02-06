@@ -4,8 +4,8 @@ let
   disks = [ "/dev/sda" ];
 in {
   imports = [
-    inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
+    inputs.disko.nixosModules.disko
 
     ../common/global
     ../common/users/aaron.nix

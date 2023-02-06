@@ -1,5 +1,10 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+let
+  hostName = "vbox";
+  disks = [ "/dev/sda" ];
+in {
   imports = [
+    inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
 
     ../common/global
@@ -8,8 +13,25 @@
     ../common/optional/plasma.nix
   ];
 
+  # TODO: Come back and see if this can be tidied up.
+  disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+    inherit disks;
+  });
+
+  boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+
+    loader.grub = {
+      devices = [ (builtins.elemAt disks 0) ];
+      enable = true;
+      version = 2;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+    };
+  };
+
   networking = {
-    hostName = "vbox";
+    inherit hostName;
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -19,11 +41,6 @@
     # Disable the firewall since we're in a VM and we want to make it
     # easy to visit stuff in here. We only use NAT networking anyways.
     firewall.enable = false;
-  };
-
-  boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-    loader.grub.devices = [ "/dev/sda" ];
   };
 
   services.dbus.packages = [ pkgs.gcr ];

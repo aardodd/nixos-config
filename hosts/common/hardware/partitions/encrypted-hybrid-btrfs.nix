@@ -35,7 +35,6 @@
             content = {
               name = "crypted";
               type = "luks";
-              keyFile = "/tmp/disk.key";
               content = {
                 type = "btrfs";
                 extraArgs = "--label root -f"; # Override existing partition

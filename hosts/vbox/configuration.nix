@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 let
   hostName = "vbox";
+  hostId = "deadbeef";
   disks = [ "/dev/sda" ];
 in {
   imports = [
@@ -31,7 +32,7 @@ in {
   };
 
   networking = {
-    inherit hostName;
+    inherit hostName hostId;
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.
     # Per-interface useDHCP will be mandatory in the future, so this generated config

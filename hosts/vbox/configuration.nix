@@ -7,6 +7,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
+    ../common/optional/zfs-optin-persistence.nix
 
     ../common/global
     ../common/users/aaron.nix
@@ -15,7 +16,7 @@ in {
   ];
 
   # TODO: Come back and see if this can be tidied up.
-  disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+  disko.devices = (import ../common/hardware/partitions/hybrid-zfs.nix {
     inherit disks;
   });
 

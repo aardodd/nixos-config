@@ -1,9 +1,8 @@
 { lib, config, ... }:
 let
-  hostname = config.networking.hostName;
   wipeScript = ''
     mkdir -p /btrfs
-    mount -o subvol=/ /dev/mapper/crypted /btrfs
+    mount -o subvol=/ /dev/disk/by-label/root /btrfs
     if [ -e "/btrfs/root/dontwipe" ]; then
       echo "Not wiping root"
     else
@@ -16,7 +15,7 @@ let
       btrfs subvolume snapshot /btrfs/root-blank /btrfs/root
     fi
     umount /btrfs
-    rm /btrfs
+    rm -rf /btrfs
   '';
 in
 {

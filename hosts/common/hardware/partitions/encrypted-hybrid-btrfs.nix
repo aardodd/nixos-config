@@ -42,6 +42,13 @@
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
+                    postCreateHook = ''
+                      mkdir -p $MNTPOINT
+                      mount /dev/mapper/crypted $MNTPOINT -o subvol=/root
+                      btrfs subvolume snapshot -r $MNTPOINT $MNTPOINT/root-blank
+                      umount $MNTPOINT
+                      rm -rf $MNTPOINT
+                    '';
                   };
                   "/home" = {
                     mountOptions = [ "compress=zstd" ];

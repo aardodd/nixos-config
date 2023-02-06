@@ -171,3 +171,22 @@ ssh-keygen -a 100 -t ed25519
  - [ ] Copy the public key to any services that need it (e.g., GitHub, GitLab, etc).
  - [ ] Commit any changes.
  - [ ] Push.
+
+### Abridged installation steps (TLDR)
+
+TLDR for those who want the commands only (assumes setting up `vbox` with its default configuration)
+
+```bash
+sudo -i
+nix-shell -p git --run "git clone https://github.com/aardodd/nixos-config"
+cd nixos-config
+nix-shell
+nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/hardware/partitions/encrypted-hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
+mkdir -p /mnt/persist/nixos-config
+mv * .* /mnt/persist/nixos-config
+cd /mnt/persist/nixos-config
+rm -rf hosts/vbox/hardware-configuration.nix
+nixos-generate-config --no-filesystems --root /mnt --dir hosts/vbox
+nixos-install --flake .#vbox
+reboot
+```

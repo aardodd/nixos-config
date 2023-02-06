@@ -7,89 +7,162 @@ My NixOS configuration for my machines.
 
 When building a new development environment from scratch, complete the following steps:
 
- - [ ] Download the NixOS graphical installer from the following link:
+ - [ ] Download the NixOS minimal installer from the following link:
        https://nixos.org/download.html
- - [ ] Download a hypervisor such as VirtualBox or VMWare.
- - [ ] Create a new virtual machine using the NixOS installer as installation media.
- - [ ] Start the virtual machine.
- - [ ] Follow the NixOS graphical installer instructions to get setup with a basic installation.
- - [ ] Reboot and log in to the virtual machine.
- - [ ] Gain an elevated shell using `sudo su` or similar.
- - [ ] Create a bootstrapping shell with the following commands:
+ - [ ] Burn it.
+ - [ ] Enter the minimal system.
+ - [ ] Get root access:
 
 ```bash
-nix-shell -p git nixFlakes
+sudo -i
+sudo su
+# etc...
 ```
 
- - [ ] Clone and `cd` in to the `nixos-config` repository:
+ - [ ] Get access to Git:
 
 ```bash
-git clone https://github.com/aardodd/nixos-config ~/nixos-config
-cd ~/nixos-config
+nix-shell -p git
+```
+
+ - [ ] Clone and `cd` in to the repository:
+
+```bash
+git clone https://github.com/aardodd/nixos-config
+exit # to get out of the initial nix-shell.
+cd nixos-config
+```
+
+ - [ ] Download the development dependencies:
+
+```bash
+nix-shell
+```
+
+ - [ ] Use `lsblk` to find which disk you want to install to.
+ - [ ] Find a partition layout. Look in `hosts/common/hardware/partitions` for premade layouts or make your own using `https://github.com/nix-community/disko/tree/master/example` as inspiration. In the guide we shall use the `hybrid-btrfs.nix` file.
+ - [ ] Set up the partitions using the following command, substituting `/dev/sda` for your disk:
+
+```bash
+nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/hardware/partitions/hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
+```
+
+ - [ ] Clone or move the repository onto the formatted disk:
+
+```bash
+git clone https://github.com/aardodd/nixos-config /mnt/persist/nixos-config
+cd /mnt/persist/nixos-config
 ```
 
 #### Using an existing host
 
 To reuse the configuration for an existing host, complete the following step(s), then continue on to [[#Finalising the installation]].
 
- - [ ] Replace the `hardware-configuration.nix` in `hosts/<hostname>` with the one located in `/etc/nixos`
+ - [ ] Remove the `hardware-configuration.nix` in `hosts/<hostname>`:
 
 ```bash
-rm ./hosts/<hostname>/hardware-configuration.nix
-cp /etc/nixos/hardware-configuration.nix ./hosts/<hostname>/hardware-configuration.nix
+rm hosts/<hostname>/hardware-configuration.nix
+```
+
+ - [ ] Generate a new `hardware-configurattion.nix` without filesystem information:
+
+```bash
+nixos-generate-config --no-filesystems --root /mnt --dir hosts/<hostname>
+```
+
+ - [ ] Check disk layout information in the `configuration.nix` file matches what you expect:
+
+```nix
+disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+  disks = [ "/dev/sda" ];
+});
 ```
 
 #### Registering a new host
 
 To register a new host, complete the following step(s), then continue on to [[#Finalising the installation]].
 
- - [ ] Create a new `hostname` directory under the `hosts` folder.
+ - [ ] Create a new `hostname` directory under the `hosts` folder:
 
 ```bash
 mkdir -p ./hosts/<hostname>
 ```
 
- - [ ] Copy the supplied `hardware-configuration.nix` file from the base system to the new hosts' configuration.
+ - [ ] Generate a new `configuration.nix` and `hardware-configurattion.nix` for the host:
 
 ```bash
-cp /etc/nixos/hardware-configuration.nix ./hosts/<hostname>
+nixos-generate-config --no-filesystems --root /mnt --dir hosts/<hostname>
 ```
 
- - [ ] Copy the template `default.nix` from an existing host to the new host configuration.
+ - [ ] Edit the `configuration.nix` file as necessary to support the new host.
+ - [ ] IMPORTANT: Make sure disk layout information is added to the `configuration.nix` file:
+
+```nix
+imports = [
+  ./hardware-configuration.nix
+  inputs.disko.nixosModules.disko
+];
+
+disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+  disks = [ "/dev/sda" ];
+});
+
+boot = {
+  kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+
+  loader.grub = {
+    devices = [ "/dev/sda" ];
+    enable = true;
+    version = 2;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+  };
+};
+```
+ - [ ] Copy the template `default.nix` from an existing host to the new host configuration file:
 
 ```bash
 cp hosts/<existing_hostname>/default.nix hosts/<hostname>
 ```
 
- - [ ] Edit the `default.nix` file as necessary to support the new host.
+NOTE: This file contains the following content:
+
+```nix
+{
+  imports = [
+    ./configuration.nix
+  ];
+}
+```
+
  - [ ] Register the new host in the `flake.nix` file.
 
 ```nix
 nixosConfigurations = rec {
-  # ... omitted other host definitions for brevity
   <hostname> = nixpkgs.lib.nixosSystem {
-	specialArgs = { inherit inputs outputs; };
-	modules = [ ./hosts/<hostname> ];
+	  specialArgs = { inherit inputs outputs; };
+	  modules = [ ./hosts/<hostname> ];
   };
+};
 ```
 
-#### Finalising the installation
-
- - [ ] Make Nix aware of the new file(s) by adding them to the `git` index:
+ - [ ] Make Nix aware of any new file(s) by adding them to the `git` index:
 
 ```bash
 git add .
 ```
 
- - [ ] Build the configuration with the following command:
+#### Finalising the installation
+
+ - [ ] Install the configuration with the following command:
 
 ```bash
-sudo nixos-rebuild switch --flake .#<hostname>
+nixos-install --root /mnt --flake .#<hostname>
 ```
 
  - [ ] Reboot and login as the desired user(s) with their initial password(s).
  - [ ] Change the initial password(s).
- - [ ] Generate a new SSH key.
+ - [ ] Generate a new SSH key:
 
 ```bash
 ssh-keygen -a 100 -t ed25519

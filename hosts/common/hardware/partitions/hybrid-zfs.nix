@@ -80,15 +80,13 @@
       in {
         "local" = unmountable;
         "safe" = unmountable;
-        "local/nix" = filesystem "/nix" // { options.mountpoint = "legacy"; };
-        "local/etc" = filesystem "/persist/etc";
-        "local/lib" = filesystem "/persist/lib";
-        "local/log" = filesystem "/persist/log";
-        "safe/home" = filesystem "/persist/home";
         "local/root" = filesystem "/" // {
           postCreateHook = "zfs snapshot rpool/local/root@blank";
           options.mountpoint = "legacy";
         };
+        "local/nix" = filesystem "/nix" // { options.mountpoint = "legacy"; };
+        "safe/home" = filesystem "/home";
+        "safe/persist" = filesystem "/persist";
       };
     };
   };

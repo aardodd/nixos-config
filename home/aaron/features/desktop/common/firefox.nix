@@ -7,6 +7,7 @@ in
     enable = true;
     extensions = with addons; [
       ublock-origin
+      plasma-integration
       privacy-badger
       sponsorblock
     ];
@@ -27,4 +28,6 @@ in
       };
     };
   };
+
+  home.file.".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json".source = "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
 }

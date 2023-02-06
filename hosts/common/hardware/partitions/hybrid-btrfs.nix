@@ -1,27 +1,26 @@
-{ disks ? [ "/dev/sda" ], ... }: {
+{ disks ? [ "/dev/sda" ], ... }:
+{
   disk = {
-    one = {
-      device = builtins.elemAt disks 0;
+    main = {
       type = "disk";
+      device = builtins.elemAt disks 0;
       content = {
         type = "table";
         format = "gpt";
         partitions = [
           {
-            name = "bios-boot";
+            name = "boot";
             type = "partition";
             start = "0";
-            end = "8M";
-            part-type = "primary";
+            end = "1M";
             flags = [ "bios_grub" ];
           }
           {
-            name = "uefi-boot";
+            name = "ESP";
             type = "partition";
-            start = "8M";
-            end = "520M";
-            part-type = "primary";
-            flags = [ "boot" "esp" ];
+            start = "1M";
+            end = "512M";
+            bootable = true;
             content = {
               type = "filesystem";
               format = "vfat";
@@ -31,19 +30,17 @@
           {
             name = "root";
             type = "partition";
-            start = "520M";
+            start = "512M";
             end = "100%";
-            part-type = "primary";
             content = {
               type = "btrfs";
               extraArgs = "-f"; # Override existing partition
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";
-                  mountOptions = [ "compress=zstd" "noatime" ];
                 };
                 "/home" = {
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [ "compress=zstd" ];
                 };
                 "/nix" = {
                   mountOptions = [ "compress=zstd" "noatime" ];

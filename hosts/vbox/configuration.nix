@@ -3,7 +3,8 @@ let
   hostName = "vbox";
   hostId = "deadbeef";
   disks = [ "/dev/sda" ];
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko

@@ -40,11 +40,11 @@
     persistence = {
       "/persist/home/aaron" = {
         directories = [
-	  "Documents"
-	  "Downloads"
-	  "Pictures"
-	  "Videos"
-	];
+          "Documents"
+          "Downloads"
+          "Pictures"
+          "Videos"
+        ];
         allowOther = true;
       };
     };

@@ -66,28 +66,30 @@
         normalization = "formD";
         relatime = "on";
       };
-      datasets = let
-        unmountable = {
-          zfs_type = "filesystem";
-          mountpoint = null;
-          options.canmount = "off";
+      datasets =
+        let
+          unmountable = {
+            zfs_type = "filesystem";
+            mountpoint = null;
+            options.canmount = "off";
+          };
+          filesystem = mountpoint: {
+            zfs_type = "filesystem";
+            inherit mountpoint;
+            # options."com.sun:auto-snapshot" = "true";
+          };
+        in
+        {
+          "local" = unmountable;
+          "safe" = unmountable;
+          "local/root" = filesystem "/" // {
+            postCreateHook = "zfs snapshot rpool/local/root@blank";
+            options.mountpoint = "legacy";
+          };
+          "local/nix" = filesystem "/nix" // { options.mountpoint = "legacy"; };
+          "safe/home" = filesystem "/home";
+          "safe/persist" = filesystem "/persist";
         };
-        filesystem = mountpoint: {
-          zfs_type = "filesystem";
-          inherit mountpoint;
-          # options."com.sun:auto-snapshot" = "true";
-        };
-      in {
-        "local" = unmountable;
-        "safe" = unmountable;
-        "local/root" = filesystem "/" // {
-          postCreateHook = "zfs snapshot rpool/local/root@blank";
-          options.mountpoint = "legacy";
-        };
-        "local/nix" = filesystem "/nix" // { options.mountpoint = "legacy"; };
-        "safe/home" = filesystem "/home";
-        "safe/persist" = filesystem "/persist";
-      };
     };
   };
 }

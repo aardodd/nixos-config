@@ -3,7 +3,8 @@ let
   hostName = "aetherius";
   hostId = "deadbeef";
   disks = [ "/dev/nvme0n1" ];
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko

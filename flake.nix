@@ -103,6 +103,10 @@
       );
 
       nixosConfigurations = rec {
+        aetherius = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/aetherius ];
+        };
         vbox = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/vbox ];

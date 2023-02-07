@@ -5,13 +5,14 @@ in
 {
   programs.firefox = {
     enable = true;
-    extensions = with addons; [
-      ublock-origin
-      plasma-integration
-      privacy-badger
-      sponsorblock
-    ];
     profiles.default = {
+      extensions = with addons; [
+        bitwarden
+        ublock-origin
+        plasma-integration
+        privacy-badger
+        sponsorblock
+      ];
       bookmarks = { };
       settings = {
         "browser.startup.homepage" = "https://start.duckduckgo.com";

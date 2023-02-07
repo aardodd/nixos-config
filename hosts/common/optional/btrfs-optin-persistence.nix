@@ -23,4 +23,10 @@ in
 
   # Use postDeviceCommands if on old phase 1
   boot.initrd.postDeviceCommands = lib.mkBefore wipeScript;
+
+  fileSystems = {
+    "/persist" = {
+      neededForBoot = true;
+    };
+  };
 }

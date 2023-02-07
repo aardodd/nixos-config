@@ -2,6 +2,7 @@
 {
   imports = [
     ./firefox.nix
+    ./kdeconnect.nix
   ];
 
   home.packages = with pkgs; [

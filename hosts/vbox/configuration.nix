@@ -14,6 +14,7 @@ in
     ../common/users/aaron.nix
 
     ../common/optional/plasma.nix
+    ../common/optional/ethernet.nix
   ];
 
   # TODO: Come back and see if this can be tidied up.

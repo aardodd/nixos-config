@@ -20,6 +20,4 @@
     okular
     spectacle
   ];
-
-  networking.networkmanager.enable = true;
 }

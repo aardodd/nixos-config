@@ -25,6 +25,14 @@
   environment = {
     binsh = "${pkgs.dash}/bin/dash";
     systemPackages = with pkgs; [ git ];
+
+    # keep logs, timers, etc.
+    persistence = {
+      "/persist".directories = [
+        "/var/lib/systemd"
+        "/srv"
+      ];
+    };
   };
 
   services.dbus.enable = true;

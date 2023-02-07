@@ -30,5 +30,18 @@ in
     };
   };
 
-  home.file.".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json".source = "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
+  home = {
+    sessionVariables.BROWSER = "firefox";
+    persistence = {
+      "/persist/home/aaron".directories = [
+        ".mozilla/firefox"
+      ];
+    };
+
+    file = {
+      ".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json" = {
+        source = "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
+      };
+    };
+  };
 }

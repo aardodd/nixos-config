@@ -18,6 +18,7 @@ in
       "wheel"
       "video"
       "audio"
+      "networkmanager"
     ] ++ ifGroupsExist [
       "network"
       "docker"

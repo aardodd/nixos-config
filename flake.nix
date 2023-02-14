@@ -114,6 +114,21 @@
       };
 
       homeConfigurations = {
+        # Laptop configuration
+        "aaron@aetherius" = home-manager.lib.homeManagerConfiguration {
+          pkgs = legacyPackages."x86_64-linux";
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/aaron/aetherius.nix ];
+        };
+
+        # Virtual machine configuration
+        "aaron@vbox" = home-manager.lib.homeManagerConfiguration {
+          pkgs = legacyPackages."x86_64-linux";
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/aaron/vbox.nix ];
+        };
+
+        # Minimum configuration
         "aaron@generic" = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };

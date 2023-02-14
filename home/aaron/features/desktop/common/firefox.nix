@@ -35,6 +35,7 @@ in
     persistence = {
       "/persist/home/aaron".directories = [
         ".mozilla/firefox"
+        ".mozilla/native-messaging-hosts"
       ];
     };
 

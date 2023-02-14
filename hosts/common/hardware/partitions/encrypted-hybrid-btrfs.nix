@@ -49,9 +49,6 @@
                       rm -rf $MNTPOINT
                     '';
                   };
-                  "/home" = {
-                    mountOptions = [ "compress=zstd" ];
-                  };
                   "/nix" = {
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };

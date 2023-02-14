@@ -160,8 +160,13 @@ git add .
 nixos-install --root /mnt --flake .#<hostname>
 ```
 
- - [ ] Reboot and login as the desired user(s) with their initial password(s).
- - [ ] Change the initial password(s).
+ - [ ] Reboot.
+ - [ ] Login.
+ - [ ] Change passwords if necessary using `doas passwd <username>`.
+ - [ ] Mark your user as owning `/persist` using `doas chown -h <username> /persist`.
+ - [ ] Mark your user as owning `/persist/nixos-config` using `doas chown -hR <username> /persist/nixos-config`.
+ - [ ] Generate your home configuration using `home-manager switch --flake .#<username>@<hostname>`.
+   - [ ] You may have to erase `~/.config` and `~/.mozilla` for this to take effect.
  - [ ] Generate a new SSH key:
 
 ```bash

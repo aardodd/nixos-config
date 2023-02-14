@@ -59,6 +59,9 @@
                     mountOptions = [ "compress=zstd" "noatime" ];
                     mountpoint = "/var/log";
                   };
+                  "/swap" = {
+                    mountOptions = [ "noatime" ];
+                  };
                 };
               };
             };

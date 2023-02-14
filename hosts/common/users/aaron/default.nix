@@ -20,6 +20,7 @@ in
       "libvirtd"
     ];
     initialPassword = "deadbread";
+    packages = [ pkgs.home-manager ];
   };
 
   home-manager.users.aaron = import ../../../../home/aaron/${config.networking.hostName}.nix;

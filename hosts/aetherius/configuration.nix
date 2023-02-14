@@ -11,7 +11,7 @@ in
     ../common/optional/btrfs-optin-persistence.nix
 
     ../common/global
-    ../common/users/aaron.nix
+    ../common/users/aaron
 
     ../common/optional/plasma.nix
     ../common/optional/ethernet.nix

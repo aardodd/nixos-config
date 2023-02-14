@@ -11,14 +11,14 @@ in
     ../common/optional/btrfs-optin-persistence.nix
 
     ../common/global
-    ../common/users/aaron.nix
+    ../common/users/aaron
 
     ../common/optional/plasma.nix
     ../common/optional/ethernet.nix
   ];
 
   # TODO: Come back and see if this can be tidied up.
-  disko.devices = (import ../common/hardware/partitions/encrypted-hybrid-btrfs.nix {
+  disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
     inherit disks;
   });
 

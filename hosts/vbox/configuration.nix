@@ -15,6 +15,7 @@ in
 
     ../common/optional/plasma.nix
     ../common/optional/ethernet.nix
+    ../common/optional/zram-swap.nix
   ];
 
   # TODO: Come back and see if this can be tidied up.

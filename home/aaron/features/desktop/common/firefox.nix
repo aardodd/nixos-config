@@ -9,7 +9,6 @@ in
       extensions = with addons; [
         bitwarden
         ublock-origin
-        plasma-integration
         privacy-badger
         sponsorblock
       ];
@@ -35,14 +34,7 @@ in
     persistence = {
       "/persist/home/aaron".directories = [
         ".mozilla/firefox"
-        ".mozilla/native-messaging-hosts"
       ];
-    };
-
-    file = {
-      ".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json" = {
-        source = "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
-      };
     };
   };
 }

@@ -40,11 +40,11 @@ nix-shell
 ```
 
  - [ ] Use `lsblk` to find which disk you want to install to.
- - [ ] Find a partition layout. Look in `hosts/common/hardware/partitions` for premade layouts or make your own using `https://github.com/nix-community/disko/tree/master/example` as inspiration. In the guide we shall use the `hybrid-btrfs.nix` file.
+ - [ ] Find a partition layout. Look in `hosts/common/partitions` for premade layouts or make your own using `https://github.com/nix-community/disko/tree/master/example` as inspiration. In the guide we shall use the `hybrid-btrfs.nix` file.
  - [ ] Set up the partitions using the following command, substituting `/dev/sda` for your disk:
 
 ```bash
-nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/hardware/partitions/hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
+nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/partitions/hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
 ```
 
  - [ ] Clone or move the repository onto the formatted disk:
@@ -73,7 +73,7 @@ nixos-generate-config --no-filesystems --root /mnt --dir hosts/<hostname>
  - [ ] Check disk layout information in the `configuration.nix` file matches what you expect:
 
 ```nix
-disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+disko.devices = (import ../common/partitions/hybrid-btrfs.nix {
   disks = [ "/dev/sda" ];
 });
 ```
@@ -103,7 +103,7 @@ imports = [
   inputs.disko.nixosModules.disko
 ];
 
-disko.devices = (import ../common/hardware/partitions/hybrid-btrfs.nix {
+disko.devices = (import ../common/partitions/hybrid-btrfs.nix {
   disks = [ "/dev/sda" ];
 });
 
@@ -186,7 +186,7 @@ sudo -i
 nix-shell -p git --run "git clone https://github.com/aardodd/nixos-config"
 cd nixos-config
 nix-shell
-nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/hardware/partitions/encrypted-hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
+nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/partitions/encrypted-hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
 mkdir -p /mnt/persist/nixos-config
 mv * .* /mnt/persist/nixos-config
 cd /mnt/persist/nixos-config

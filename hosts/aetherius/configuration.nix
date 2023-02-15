@@ -18,7 +18,7 @@ in
   ];
 
   # TODO: Come back and see if this can be tidied up.
-  disko.devices = (import ../common/hardware/partitions/encrypted-hybrid-btrfs.nix {
+  disko.devices = (import ../common/partitions/encrypted-hybrid-btrfs.nix {
     inherit disks;
   });
 

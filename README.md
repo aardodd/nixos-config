@@ -85,7 +85,7 @@ To register a new host, complete the following step(s), then continue on to [[#F
  - [ ] Create a new `hostname` directory under the `hosts` folder:
 
 ```bash
-mkdir -p ./systems/<hostname>
+mkdir -p ./hosts/<hostname>
 ```
 
  - [ ] Generate a new `configuration.nix` and `hardware-configurattion.nix` for the host:
@@ -119,10 +119,10 @@ boot = {
   };
 };
 ```
- - [ ] Copy the template `default.nix` from an existing system to the new system configuration file:
+ - [ ] Copy the template `default.nix` from an existing host to the new host configuration file:
 
 ```bash
-cp systems/<existing_hostname>/default.nix systems/<hostname>
+cp hosts/<existing_hostname>/default.nix hosts/<hostname>
 ```
 
 NOTE: This file contains the following content:
@@ -135,13 +135,13 @@ NOTE: This file contains the following content:
 }
 ```
 
- - [ ] Register the new system in the `flake.nix` file.
+ - [ ] Register the new host in the `flake.nix` file.
 
 ```nix
 nixosConfigurations = rec {
   <hostname> = nixpkgs.lib.nixosSystem {
 	  specialArgs = { inherit inputs outputs; };
-	  modules = [ ./systems/<hostname> ];
+	  modules = [ ./hosts/<hostname> ];
   };
 };
 ```
@@ -186,12 +186,12 @@ sudo -i
 nix-shell -p git --run "git clone https://github.com/aardodd/nixos-config"
 cd nixos-config
 nix-shell
-nix run github:nix-community/disko -- --mode zap_create_mount systems/common/partitions/encrypted-hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
+nix run github:nix-community/disko -- --mode zap_create_mount hosts/common/partitions/encrypted-hybrid-btrfs.nix --arg disks '[ "/dev/sda" ]'
 mkdir -p /mnt/persist/nixos-config
 mv * .* /mnt/persist/nixos-config
 cd /mnt/persist/nixos-config
-rm -rf systems/vbox/hardware-configuration.nix
-nixos-generate-config --no-filesystems --root /mnt --dir systems/vbox
+rm -rf hosts/vbox/hardware-configuration.nix
+nixos-generate-config --no-filesystems --root /mnt --dir hosts/vbox
 nixos-install --flake .#vbox
 reboot
 ```

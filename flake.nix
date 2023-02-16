@@ -60,47 +60,27 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      inherit (nixpkgs.lib) filterAttrs;
-      inherit (builtins) mapAttrs elem;
       inherit (self) outputs;
 
-      supportedSystems = [
+      forEachSystem = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
         "aarch64-linux"
         "i686-linux"
         "x86_64-darwin"
         "x86_64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     rec {
-      templates = import ./templates;
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
-      overlays = import ./overlays;
+      templates = import ./templates;
 
-      legacyPackages = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-          overlays = with overlays; [ additions ];
-          config.allowUnfree = true;
-        }
-      );
+      overlays = import ./overlays { inherit inputs outputs; };
 
-      packages = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./pkgs { inherit pkgs; }
-      );
-
-      formatter = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in pkgs.nixpkgs-fmt
-      );
-
-      devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in import ./shell.nix { inherit pkgs; }
-      );
+      packages = forEachPkgs (pkgs: import ./packages { inherit pkgs; });
+      devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
+      formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
 
       nixosConfigurations = rec {
         aetherius = nixpkgs.lib.nixosSystem {
@@ -116,27 +96,27 @@
       homeConfigurations = {
         # Laptop configuration
         "aaron@aetherius" = home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages."x86_64-linux";
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/aaron/aetherius.nix ];
         };
 
         # Virtual machine configuration
         "aaron@vbox" = home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages."x86_64-linux";
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/aaron/vbox.nix ];
         };
 
         # Minimum configuration
         "aaron@generic" = home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages."x86_64-linux";
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/aaron/generic.nix ];
         };
       };
 
-      apps = forAllSystems (system:
+      apps = forEachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           mkApp = name: script: {

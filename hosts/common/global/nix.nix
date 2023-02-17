@@ -1,10 +1,4 @@
-{ pkgs, inputs, lib, config, ... }:
-let
-  programsdb = inputs.programsdb.packages.${pkgs.system}.programs-sqlite;
-in
-{
-  programs.command-not-found.dbPath = programsdb;
-
+{ pkgs, inputs, lib, config, ... }: {
   nix = {
     settings = {
       substituters = [

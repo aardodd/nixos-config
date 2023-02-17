@@ -2,6 +2,7 @@
   imports = [
     ./fish.nix
     ./git.nix
+    ./nix-index.nix
     ./ssh.nix
     ./starship.nix
   ];

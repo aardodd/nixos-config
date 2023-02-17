@@ -35,6 +35,15 @@
     };
   };
 
+  system = {
+    autoUpgrade = {
+      enable = true;
+      flake = "github:aardodd/nixos-config";
+      dates = "01/4:00";
+      randomizedDelaySec = "10min";
+    };
+  };
+
   services.dbus.enable = true;
 
   programs.fuse.userAllowOther = true;

@@ -11,7 +11,7 @@
   ] ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager = {
-    useUserPackages = true;
+    useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs outputs; };
   };
 

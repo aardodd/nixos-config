@@ -17,8 +17,6 @@
 #           ▟███▛▜███▙       ▜███▙
 #          ▟███▛  ▜███▙       ▜███▙
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘
-#
-#
 
 {
   description = "My NixOS Configuration";

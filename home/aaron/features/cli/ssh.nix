@@ -7,7 +7,7 @@ in
     enable = true;
     matchBlocks = {
       net = {
-        host = builtins.concatStringMap " " hostnames;
+        host = builtins.concatStringsSep " " hostnames;
         forwardAgent = true;
       };
     };

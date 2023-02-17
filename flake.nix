@@ -66,7 +66,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
 
@@ -80,8 +80,7 @@
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     rec {
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+      nixosModules = import ./modules;
       templates = import ./templates;
 
       overlays = import ./overlays { inherit inputs outputs; };
@@ -98,29 +97,6 @@
         vbox = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/vbox ];
-        };
-      };
-
-      homeConfigurations = {
-        # Laptop configuration
-        "aaron@aetherius" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/aaron/aetherius.nix ];
-        };
-
-        # Virtual machine configuration
-        "aaron@vbox" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/aaron/vbox.nix ];
-        };
-
-        # Minimum configuration
-        "aaron@generic" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/aaron/generic.nix ];
         };
       };
 

@@ -22,7 +22,8 @@ in
     };
     gc = {
       automatic = true;
-      dates = "weekly";
+      dates = "hourly";
+      options = "--delete-older-than 7d";
     };
 
     # Add each flake input as a registry

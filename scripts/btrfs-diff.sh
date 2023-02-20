@@ -4,7 +4,7 @@
 
 # mount
 mkdir --parents /mnt
-mount -o subvol=/ /dev/mapper/crypted /mnt
+mount -o subvol=/ /dev/disk/by-label/root /mnt
 
 # list new directories
 set -euo pipefail

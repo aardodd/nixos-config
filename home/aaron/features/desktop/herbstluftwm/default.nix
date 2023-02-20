@@ -11,6 +11,7 @@
       Mod4-Shift-r = "reload";
       Mod4-Shift-c = "close";
 
+      Mod4-x = "rofi";
       Mod4-Return = "spawn alacritty";
 
       Mod4-Left = "focus left";

@@ -1,5 +1,5 @@
 { config, inputs, lib, pkgs, ... }: {
-  programs.alacritty = {
+  programs.rofi = {
     enable = true;
   };
 }

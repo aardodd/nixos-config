@@ -93,21 +93,5 @@
           modules = [ ./hosts/vbox ];
         };
       };
-
-      apps = forEachSystem (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          mkApp = name: script: {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "${name}.sh" script);
-          };
-        in
-        {
-          fmt = mkApp "fmt" ''
-            PATH=${with pkgs; lib.makeBinPath [ nix git ]}
-            ${pkgs.lib.fileContents ./scripts/fmt.sh}
-          '';
-        }
-      );
     };
 }

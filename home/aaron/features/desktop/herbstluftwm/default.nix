@@ -42,7 +42,7 @@
       Mod4-7 = "use_index 7";
       Mod4-8 = "use_index 8";
       Mod4-9 = "use_index 9";
-      Mod4-0 = "use_index 10";
+      Mod4-0 = "use_index 0";
 
       Mod4-Shift-1 = "move_index 1";
       Mod4-Shift-2 = "move_index 2";
@@ -53,7 +53,7 @@
       Mod4-Shift-7 = "move_index 7";
       Mod4-Shift-8 = "move_index 8";
       Mod4-Shift-9 = "move_index 9";
-      Mod4-Shift-0 = "move_index 10";
+      Mod4-Shift-0 = "move_index 0";
 
       Mod4-period = "use_index +1 --skip-visible";
       Mod4-comma = "use_index -1 --skip-visible";

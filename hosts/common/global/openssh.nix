@@ -15,4 +15,11 @@
 
   # Passwordless sudo when SSH'ing with keys
   security.pam.enableSSHAgentAuth = true;
+
+  environment.persistence."/persist" = {
+    files = [
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_rsa_key"
+    ];
+  };
 }

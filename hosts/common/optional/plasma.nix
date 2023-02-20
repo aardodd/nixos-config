@@ -5,7 +5,12 @@
       displayManager.sddm = {
         enable = true;
       };
-      desktopManager.plasma5.enable = true;
+      desktopManager.plasma5 = {
+        enable = true;
+        excludePackages = with pkgs; [
+          plasma5Packages.oxygen
+        ];
+      };
     };
   };
 

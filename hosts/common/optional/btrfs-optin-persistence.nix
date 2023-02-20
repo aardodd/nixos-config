@@ -29,4 +29,11 @@ in
       neededForBoot = true;
     };
   };
+
+  # Keep machine-id so that journalctl can access logs from previous boots.
+  environment.persistence."/persist" = {
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 }

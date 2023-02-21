@@ -7,7 +7,6 @@ in
     enable = true;
     profiles.default = {
       extensions = with addons; [
-        bitwarden
         plasma-integration
         privacy-badger
         sponsorblock

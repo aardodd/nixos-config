@@ -125,7 +125,7 @@ doas chown -hR <username> /persist/nixos-config
  - [ ] Generate your home configuration by executing the following command:
 
 ```bash
-doas nixos-rebuild switch --flake .#<hostname>
+doas nixos-rebuild boot --flake .#<hostname>
 ```
 
  - [ ] Reboot so that the home-manager configuration for your user can take effect.

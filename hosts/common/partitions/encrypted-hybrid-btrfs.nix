@@ -37,7 +37,7 @@
               type = "luks";
               content = {
                 type = "btrfs";
-                extraArgs = "--label root -f"; # Override existing partition
+                extraArgs = [ "--label root" "-f" ]; # Override existing partition
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";

@@ -8,9 +8,10 @@ in
     profiles.default = {
       extensions = with addons; [
         bitwarden
-        ublock-origin
+        plasma-integration
         privacy-badger
         sponsorblock
+        ublock-origin
       ];
       bookmarks = { };
       settings = {
@@ -35,6 +36,12 @@ in
       "/persist/home/aaron".directories = [
         ".mozilla/firefox"
       ];
+    };
+
+    file = {
+      ".mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json" = {
+        source = "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts/org.kde.plasma.browser_integration.json";
+      };
     };
   };
 }

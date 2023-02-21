@@ -4,5 +4,6 @@
     ./firefox.nix
     ./kdeconnect.nix
     ./keepassxc.nix
+    ./syncthing.nix
   ];
 }

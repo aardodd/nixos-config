@@ -137,3 +137,16 @@ ssh-keygen -a 100 -t ed25519
 
  - [ ] Copy the public key to any services that need it (e.g., GitHub, GitLab, etc).
  - [ ] Commit and push any changes.
+
+## Troubleshooting...
+### nixos-install runs of out memory during installation
+
+Run the following command as `root`, and then repeat the installation:
+
+```bash
+nix-collect-garbage -d
+```
+
+This command frees space used by the previous commands during installation,
+and in some cases gives us enough overhead to successfully install NixOS. In
+testing I have been able to install with 4GB of RAM as a minimum.

@@ -31,7 +31,7 @@ in
   systemd.user.timers.nix-index-database-sync = {
     Unit = { Description = "Automatic github:mic92/nix-index-database fetching"; };
     Timer = {
-      OnBootSec = "10m";
+      OnBootSec = "5m";
       OnUnitActiveSec = "24h";
     };
     Install = { WantedBy = [ "timers.target" ]; };

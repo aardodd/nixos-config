@@ -1,6 +1,6 @@
-{ pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
-  addons = inputs.firefox-addons.packages.${pkgs.system};
+  addons = config.nur.repos.rycee.firefox-addons;
 in
 {
   programs.firefox = {

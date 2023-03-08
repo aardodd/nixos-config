@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
+    inputs.nur.hmModules.nur
     ../features/cli
     ../features/desktop/common
     ../features/emacs

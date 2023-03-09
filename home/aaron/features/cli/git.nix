@@ -16,8 +16,8 @@ in {
     userEmail = email;
     delta.enable = true;
     extraConfig = {
-      commit.template = "${commitTemplate}";
       commit.gpgSign = true;
+      commit.template = "${commitTemplate}";
       feature.manyFiles = true;
       format.signoff = true;
       gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
@@ -25,6 +25,7 @@ in {
       init.defaultBranch = "main";
       pull.rebase = "true";
       push.default = "current";
+      tag.gpgSign = true;
       user.signingkey = "~/.ssh/id_ed25519.pub";
     };
     ignores = [ ".direnv" "result" ];

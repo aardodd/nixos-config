@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   name = "Aaron Dodd";
-  email = "8947937+aardodd@users.noreply.github.com";
+  email = "contact@aaronrdodd.com";
   commitTemplate = pkgs.writeTextFile {
     name = "aaron-commit-template";
     text = ''

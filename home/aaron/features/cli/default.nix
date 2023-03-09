@@ -19,6 +19,7 @@
     fd # Better find
     httpie # Better curl
     hledger # Finance tracking
+    just # Task runner
     jq # JSON pretty printer and manipulator
     ncdu # TUI disk usage
     nixfmt # Nix formatter

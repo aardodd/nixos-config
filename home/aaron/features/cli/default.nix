@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./bat.nix
+    ./broot.nix
     ./fish.nix
     ./git.nix
     ./nix-index.nix

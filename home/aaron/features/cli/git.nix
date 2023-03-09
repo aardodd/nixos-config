@@ -20,14 +20,20 @@ in {
       commit.template = "${commitTemplate}";
       feature.manyFiles = true;
       format.signoff = true;
-      gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
+      gpg.ssh.allowedSignersFile = "/persist/home/aaron/.config/git/allowed_signers";
       gpg.format = "ssh";
       init.defaultBranch = "main";
       pull.rebase = "true";
       push.default = "current";
       tag.gpgSign = true;
-      user.signingkey = "~/.ssh/id_ed25519.pub";
+      user.signingkey = "/persist/home/aaron/.ssh/id_ed25519.pub";
     };
     ignores = [ ".direnv" "result" ];
+  };
+
+  home.persistence = {
+    "/persist/home/aaron".files = [
+      ".config/git/allowed_signers"
+    ];
   };
 }

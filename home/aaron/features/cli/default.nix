@@ -9,6 +9,7 @@
     ./ranger.nix
     ./ssh.nix
     ./starship.nix
+    ./zellij.nix
   ];
 
   home.packages = with pkgs; [

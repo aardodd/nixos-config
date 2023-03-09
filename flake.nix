@@ -24,8 +24,7 @@
   inputs = {
     # Nix channel selection.
     # Pick a channel from https://status.nixos.org/
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     # Interfacing with hardware.

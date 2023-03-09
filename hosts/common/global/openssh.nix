@@ -2,15 +2,17 @@
 {
   services.openssh = {
     enable = true;
-    # Harden
-    passwordAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      # Harden
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      # Allow forwarding ports to everywhere
+      GatewayPorts = "clientspecified";
+    };
     # Automatically remove stale sockets
     extraConfig = ''
       StreamLocalBindUnlink yes
     '';
-    # Allow forwarding ports to everywhere
-    gatewayPorts = "clientspecified";
   };
 
   # Start ssh-agent as a systemd user service

@@ -3,11 +3,6 @@
   # This one brings our custom packages from the 'packages' directory
   additions = final: _prev: import ../packages { pkgs = final; };
 
-  # Unstable nixpkgs
-  unstable = final: prev: {
-    unstable = inputs.nixpkgs-unstable.legacyPackages.${final.system};
-  };
-
   # Master nixpkgs
   master = final: prev: {
     master = inputs.nixpkgs-master.legacyPackages.${final.system};

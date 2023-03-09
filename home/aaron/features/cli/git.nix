@@ -8,7 +8,8 @@ let
       Signed-off-by: ${name} <${email}>
     '';
   };
-in {
+in
+{
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;

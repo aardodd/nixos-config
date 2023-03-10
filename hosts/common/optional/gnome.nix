@@ -17,12 +17,12 @@
     gnomeExtensions.blur-my-shell
   ];
 
-  environment.gnome.excludePackages = with pkgs; [
-    gnome.epiphany
-    gnome.geary
-    gnome.gnome-music
-    gnome.gnome-online-miners
-    gnome.totem
+  environment.gnome.excludePackages = with pkgs.gnome; [
+    epiphany
+    geary
+    gnome-music
+    gnome-online-miners
+    totem
   ];
 
   programs.kdeconnect = {

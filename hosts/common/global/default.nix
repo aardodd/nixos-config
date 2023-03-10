@@ -38,8 +38,9 @@
   system = {
     autoUpgrade = {
       enable = true;
+      allowReboot = true;
       flake = "github:aardodd/nixos-config";
-      dates = "01/4:00";
+      dates = "6:45";
       randomizedDelaySec = "10min";
     };
   };

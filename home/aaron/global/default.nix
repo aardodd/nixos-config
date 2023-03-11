@@ -5,7 +5,6 @@
     inputs.nur.hmModules.nur
     ../features/cli
     ../features/desktop/common
-    ../features/desktop/i3
     ../features/emacs
     ../features/neovim
     ../features/direnv

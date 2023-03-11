@@ -13,7 +13,7 @@ in
     ../common/global
     ../common/users/aaron
 
-    ../common/optional/x11-window-manager.nix
+    ../common/optional/plasma.nix
     ../common/optional/ethernet.nix
     ../common/optional/zram-swap.nix
   ];

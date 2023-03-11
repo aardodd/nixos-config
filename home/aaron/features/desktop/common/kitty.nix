@@ -3,7 +3,8 @@ let
   kitty-xterm = pkgs.writeShellScriptBin "xterm" ''
     ${config.programs.kitty.package}/bin/kitty -1 "$@"
   '';
-in {
+in
+{
   home = {
     packages = [ kitty-xterm ];
     sessionVariables = {

@@ -17,10 +17,4 @@
       source = ./lua;
     };
   };
-
-  home.persistence = {
-    "/persist/home/aaron".directories = [
-      ".config/nvim"
-    ];
-  };
 }

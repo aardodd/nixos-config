@@ -12,8 +12,4 @@ in
       };
     };
   };
-
-  home.persistence = {
-    "/persist/home/aaron".directories = [ ".ssh" ];
-  };
 }

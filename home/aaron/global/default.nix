@@ -29,17 +29,5 @@
     username = lib.mkDefault "aaron";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "22.11";
-
-    persistence = {
-      "/persist/home/aaron" = {
-        directories = [
-          "Documents"
-          "Downloads"
-          "Pictures"
-          "Videos"
-        ];
-        allowOther = true;
-      };
-    };
   };
 }

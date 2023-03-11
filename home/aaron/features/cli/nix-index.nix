@@ -36,10 +36,4 @@ in
     };
     Install = { WantedBy = [ "timers.target" ]; };
   };
-
-  home.persistence = {
-    "/persist/home/aaron".directories = [
-      ".cache/nix-index"
-    ];
-  };
 }

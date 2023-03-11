@@ -6,9 +6,8 @@
   xsession = {
     enable = true;
     numlock.enable = true;
-    windowManager.xmonad = {
+    windowManager.i3 = {
       enable = true;
-      enableContribAndExtras = true;
     };
   };
 
@@ -34,7 +33,7 @@
 
   home.file = {
     ".xinitrc".text = ''
-      exec xmonad
+      exec i3
     '';
   };
 }

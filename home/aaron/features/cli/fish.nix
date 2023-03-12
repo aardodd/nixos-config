@@ -19,6 +19,9 @@
       dnrs = "doas nixos-rebuild switch --flake .";
       ns = "nix shell";
       nsn = "nix shell nixpkgs#";
+
+      e = "emacsclient -t";
+      v = "nvim";
     };
     functions = {
       fish_greeting = "";
